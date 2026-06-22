@@ -1,0 +1,15 @@
+import { auth } from "./auth";
+import { NextResponse } from "next/server";
+
+export async function requireAdmin() {
+  const session = await auth();
+
+  if (!session?.user) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  return null; // Return null if authorized
+}
